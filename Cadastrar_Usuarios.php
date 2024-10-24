@@ -50,7 +50,6 @@ include "conexao.php"
   <div class="mb-3 mt-3" id='group'>
     <label class="form-check-label">Grupo do Usuário:</label>
     <select class="form-select" id="grupo">
-        <option>Selecione um Grupo</option>
         <option value="adm" id="1" name="grupo">Admin</option>
         <option value="barbeiro" id="2" name="grupo">Barbeiro</option>
         <option value="cliente" id="3" name="grupo">Cliente</option>

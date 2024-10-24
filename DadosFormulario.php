@@ -19,28 +19,35 @@ $numero_conta = $_POST['numero_conta'];
 $numero_agencia = $_POST['numero_agencia'];
 $chave_pix = $_POST['chave_pix'];
 
+echo "<br>nome_banco $nome_banco";
+echo "<br>chave_pix $chave_pix";
+echo "<br>numero_conta $numero_conta";
+echo "<br>numero_agencia $numero_agencia";
+
+
 // Inserção na tabela 'abc'
 $sql_abc = "INSERT INTO abc (nome, email, data_de_nascimento, id_grupo)
 VALUES ('$nome', '$email', '$data_de_nascimento', '$id_grupo')";
 
+if ($conn->query($sql_abc) === TRUE) {
+  echo "New record created successfully";
+} else {
+  echo "Error: " . $sql_abc . "<br>" . $conn->error;
+}
+
+$sql = "SELECT * FROM abc order by id_usuario desc limit 1";
+$result = $conn->query($sql);
+$id_usuario = $result->fetch_assoc()['id_usuario'];
+
+
 $sql_dados = "INSERT INTO dados_bancarios (nome_banco, numero_conta, numero_agencia, chave_pix )
 VALUES ('$nome_banco', '$numero_conta', '$numero_agencia', '$chave_pix')";
 
-if ($conn->query($sql_abc) === TRUE) {
-    // Obter o último id_usuario inserido
-    $last_id = $conn->insert_id; // Pega o último id inserido
-
-    // Salvar na sessão
-    $_SESSION['id_usuario'] = $last_id;
-
-    // Redirecionar após o registro
-    header("Location: visualizar_registros.php");
-} else {
-    echo "Error: " . $sql_abc . "<br>" . $conn->error;
-}
 
 if ($conn->query($sql_dados) === TRUE) {
   echo "New record created successfully";
+  header("Location: lista_de_usuarios.php");
+  
 } else {
   echo "Error: " . $sql_dados . "<br>" . $conn->error;
 }
